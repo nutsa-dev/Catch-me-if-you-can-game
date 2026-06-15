@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch Me Game</title>
+    <style>
+        body {
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+            background-color: rgb(49, 141, 246);
+            overflow: hidden;
+            cursor: none; 
+        }
+
+        button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 25px;
+            font-size: 22px;
+            font-weight: bold;
+            color: rgb(10, 10, 10);
+            background-color: #ffff47;
+            border: none;
+            border-radius: 12px;
+            cursor: none; 
+            overflow: hidden;
+            transition: top 0.3s, left 0.3s;
+
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button img {
+            width: 300px; 
+            height: 300px;
+            object-fit: contain;
+        }
+
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px; 
+            height: 320px; 
+            pointer-events: none; 
+            z-index: 9999; 
+            border-radius: 50%;
+            object-fit: cover; 
+            background-color: #ffffff; 
+            padding: 19px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="Tom.png" class="custom-cursor" id="customCursor">
+
+    <button id="btn">
+        <img src="Leo.png">
+        <span>Catch me if you can! ╰┈➤</span>
+    </button>
+
+<script>
+    const btn = document.querySelector("#btn");
+    const cursor = document.querySelector("#customCursor");
+    
+
+    window.addEventListener("mousemove", (e) => {
+      
+        cursor.style.left = `${e.clientX - 150}px`;
+        cursor.style.top = `${e.clientY - 150}px`;
+    });
+
+    btn.addEventListener("mouseover", () => {
+        const x = Math.floor((window.innerWidth - btn.clientWidth) * Math.random());
+        const y = Math.floor((window.innerHeight - btn.clientHeight) * Math.random());
+        
+        btn.style.left = `${x}px`;
+        btn.style.top = `${y}px`;
+        btn.style.transform = "translate(0, 0)";
+    });
+</script>
+</body>
+</html>
