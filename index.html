@@ -12,6 +12,7 @@
             background-color: rgb(49, 141, 246);
             overflow: hidden;
             cursor: none; 
+            touch-action: none; 
         }
 
         button {
@@ -19,8 +20,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            padding: 15px 25px;
-            font-size: 22px;
+            padding: 12px 20px;
+            font-size: 18px;
             font-weight: bold;
             color: rgb(10, 10, 10);
             background-color: #ffff47;
@@ -28,18 +29,19 @@
             border-radius: 12px;
             cursor: none; 
             overflow: hidden;
-            transition: top 0.3s, left 0.3s;
+            transition: top 0.05s, left 0.05s; 
 
             display: flex;
             flex-direction: column; 
             align-items: center;
             justify-content: center;
             gap: 8px;
+            white-space: nowrap;
         }
 
         button img {
-            width: 300px; 
-            height: 300px;
+            width: 200px; 
+            height: 200px;
             object-fit: contain;
         }
 
@@ -47,15 +49,35 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 320px; 
-            height: 320px; 
+            width: 180px; 
+            height: 180px; 
             pointer-events: none; 
             z-index: 9999; 
             border-radius: 50%;
             object-fit: cover; 
             background-color: #ffffff; 
-            padding: 19px;
+            padding: 10px;
             box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+            
+            .custom-cursor {
+                display: none; 
+            }
+
+            button {
+                padding: 10px 15px;
+                font-size: 15px;
+            }
+
+            button img {
+                width: 130px;
+                height: 130px;
+            }
         }
     </style>
 </head>
@@ -72,20 +94,24 @@
     const btn = document.querySelector("#btn");
     const cursor = document.querySelector("#customCursor");
     
-
-    window.addEventListener("mousemove", (e) => {
-      
-        cursor.style.left = `${e.clientX - 150}px`;
-        cursor.style.top = `${e.clientY - 150}px`;
-    });
-
-    btn.addEventListener("mouseover", () => {
+    function moveButton() {
         const x = Math.floor((window.innerWidth - btn.clientWidth) * Math.random());
         const y = Math.floor((window.innerHeight - btn.clientHeight) * Math.random());
         
         btn.style.left = `${x}px`;
         btn.style.top = `${y}px`;
         btn.style.transform = "translate(0, 0)";
+    }
+
+    window.addEventListener("mousemove", (e) => {
+        cursor.style.left = `${e.clientX - 90}px`;
+        cursor.style.top = `${e.clientY - 90}px`;
+    });
+
+    btn.addEventListener("mouseover", moveButton);
+    btn.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        moveButton();
     });
 </script>
 </body>
