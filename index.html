@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catch Me Game</title>
+    <title>Catch Me If You Can Game</title>
     <style>
         body {
             height: 100vh;
@@ -13,6 +13,26 @@
             overflow: hidden;
             cursor: none; 
             touch-action: none; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .instruction-text {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            text-align: center;
+            margin: 0;
+            font-size: 20px;
+            color: #ffffff;
+            font-weight: 600;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+        }
+
+        .mobile-only {
+            display: none;
         }
 
         button {
@@ -69,25 +89,49 @@
                 display: none; 
             }
 
+            .desktop-only {
+                display: none;
+            }
+            .mobile-only {
+                display: block;
+            }
+
+            .instruction-text {
+                font-size: 16px;
+                top: 15px;
+                width: 90%;
+                box-sizing: border-box;
+            }
+
             button {
-                padding: 10px 15px;
-                font-size: 15px;
+                border-style: dashed;
+                border-color: rgb(253, 114, 1);
+            }
+
+            button span {
+                display: none;
             }
 
             button img {
-                width: 130px;
-                height: 130px;
+                width: 100px;
+                height: 100px;
+                display: block; 
             }
         }
     </style>
 </head>
 <body>
 
+    <h1 class="instruction-text">
+        <span class="desktop-only">Help Carl (Tom Hanks) to catch Frank (Leonardo DiCaprio) by clicking on his picture</span>
+        <span class="mobile-only">Catch Frank (Leonardo DiCaprio) if you can by clicking on his picture</span>
+    </h1>
+
     <img src="Tom.png" class="custom-cursor" id="customCursor">
 
     <button id="btn">
         <img src="Leo.png">
-        <span>Catch me if you can! ╰┈➤</span>
+        <span>Catch me if you can!</span>
     </button>
 
 <script>
@@ -96,7 +140,7 @@
     
     function moveButton() {
         const x = Math.floor((window.innerWidth - btn.clientWidth) * Math.random());
-        const y = Math.floor((window.innerHeight - btn.clientHeight) * Math.random());
+        const y = Math.floor((window.innerHeight - btn.clientHeight - 60) * Math.random() + 60);
         
         btn.style.left = `${x}px`;
         btn.style.top = `${y}px`;
@@ -104,8 +148,19 @@
     }
 
     window.addEventListener("mousemove", (e) => {
-        cursor.style.left = `${e.clientX - 90}px`;
-        cursor.style.top = `${e.clientY - 90}px`;
+        const cursorRadius = 90; 
+
+        let targetX = e.clientX - cursorRadius;
+        let targetY = e.clientY - cursorRadius;
+        let minX = 0;
+        let maxX = window.innerWidth - (cursorRadius * 2);
+        let minY = 0;
+        let maxY = window.innerHeight - (cursorRadius * 2);
+        let finalX = Math.max(minX, Math.min(targetX, maxX));
+        let finalY = Math.max(minY, Math.min(targetY, maxY));
+
+        cursor.style.left = `${finalX}px`;
+        cursor.style.top = `${finalY}px`;
     });
 
     btn.addEventListener("mouseover", moveButton);
