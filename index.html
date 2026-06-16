@@ -40,11 +40,12 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            padding: 12px 20px;
+            padding: 0 12px 12px 12px;
             font-size: 18px;
             font-weight: bold;
             color: rgb(10, 10, 10);
             background-color: #ffff47;
+            box-shadow: 0 0 13px rgb(10, 10, 10);
             border: none;
             border-radius: 12px;
             cursor: none; 
@@ -55,7 +56,6 @@
             flex-direction: column; 
             align-items: center;
             justify-content: center;
-            gap: 8px;
             white-space: nowrap;
         }
 
@@ -69,14 +69,15 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 180px; 
-            height: 180px; 
+            width: 200px; 
+            height: 200px; 
             pointer-events: none; 
             z-index: 9999; 
             border-radius: 50%;
             object-fit: cover; 
             background-color: #ffffff; 
-            padding: 10px;
+            box-shadow: 0 0 13px rgb(10, 10, 10);
+            padding: 12px;
             box-sizing: border-box;
         }
 
@@ -104,8 +105,8 @@
             }
 
             button {
-                border-style: dashed;
-                border-color: rgb(253, 114, 1);
+                padding: 2px 9px;
+                box-shadow: none;
             }
 
             button span {
